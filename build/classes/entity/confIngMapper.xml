@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="entity.confIngMapper">
+  <select id="selectAllConfIng" resultType="entity.ConfIng">
+    select * from conf_ing
+  </select>
+  <insert id="insertConfIng">
+  insert into conf_ing (title,password,room_id,capacity,creator,create_time)
+  values (#{title},#{password},#{room_id},#{capacity},#{creator},#{create_time})
+  </insert>
+  <select id="selectLatestConfIng" resultType="entity.ConfIng">
+  select * from conf_ing order by id desc limit 1
+  </select>
+</mapper>

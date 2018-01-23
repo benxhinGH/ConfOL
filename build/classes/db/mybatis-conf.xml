@@ -17,6 +17,8 @@
   
   <mappers>
     <mapper resource="entity/userMapper.xml"/>
+    <mapper resource="entity/confIngMapper.xml"/>
+    <mapper resource="entity/confoverMapper.xml"/>
   </mappers>
   
 </configuration>

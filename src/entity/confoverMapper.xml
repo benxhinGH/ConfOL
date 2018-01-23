@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="entity.confIngMapper">
+  <select id="selectAllConfOver" resultType="entity.ConfOver">
+    select * from conf_over
+  </select>
+  <insert id="insertConfOver">
+  insert into conf_over (title,creator,create_time,duration,participator)
+  values (#{title},#{creator},#{create_time},#{duration},#{paticipator})
+  </insert>
+</mapper>
