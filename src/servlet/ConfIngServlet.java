@@ -83,6 +83,7 @@ public class ConfIngServlet extends HttpServlet {
 		String title=request.getParameter("title");
 		String password=request.getParameter("password");
 		String roomId=request.getParameter("room_id");
+		String channelId=request.getParameter("channel_id");
 		int capacity=Integer.valueOf(request.getParameter("capacity"));
 		String creator=request.getParameter("creator");
 		Timestamp createTime=new Timestamp(System.currentTimeMillis());
@@ -91,6 +92,7 @@ public class ConfIngServlet extends HttpServlet {
 		confIng.setTitle(title);
 		confIng.setPassword(password);
 		confIng.setRoomId(roomId);
+		confIng.setChannelId(channelId);
 		confIng.setCapacity(capacity);
 		confIng.setCreator(creator);
 		confIng.setCreateTime(createTime);

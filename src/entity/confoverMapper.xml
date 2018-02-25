@@ -8,6 +8,6 @@
   </select>
   <insert id="insertConfOver">
   insert into conf_over (title,creator,create_time,duration,participator)
-  values (#{title},#{creator},#{create_time},#{duration},#{paticipator})
+  values (#{title},#{creator},#{createTime},#{duration},#{participator})
   </insert>
 </mapper>

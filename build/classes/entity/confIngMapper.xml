@@ -3,14 +3,36 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="entity.confIngMapper">
-  <select id="selectAllConfIng" resultType="entity.ConfIng">
+<resultMap type="entity.ConfIng" id="confIngResMap">
+<id property="id" column="id"/>
+<result property="title" column="title"/>
+<result property="password" column="password"/>
+<result property="roomId" column="room_id"/>
+<result property="channelId" column="channel_id"/>
+<result property="capacity" column="capacity"/>
+<result property="online" column="online"/>
+<result property="member" column="member"/>
+<result property="creator" column="creator"/>
+<result property="createTime" column="create_time"/>
+<result property="participator" column="participator"/>
+</resultMap>
+  <select id="selectAllConfIng" resultMap="confIngResMap">
     select * from conf_ing
   </select>
   <insert id="insertConfIng">
-  insert into conf_ing (title,password,room_id,capacity,creator,create_time)
-  values (#{title},#{password},#{room_id},#{capacity},#{creator},#{create_time})
+  insert into conf_ing (title,password,room_id,channel_id,capacity,online,member,creator,create_time,participator)
+  values (#{title},#{password},#{roomId},#{channelId},#{capacity},#{online},#{member},#{creator},#{createTime},#{participator})
   </insert>
-  <select id="selectLatestConfIng" resultType="entity.ConfIng">
+  <select id="selectLatestConfIng" resultMap="confIngResMap">
   select * from conf_ing order by id desc limit 1
   </select>
+  <select id="selectConfIngByRoomId" resultMap="confIngResMap">
+  select * from conf_ing where room_id = #{roomId}
+  </select>
+  <update id="updateConfIng" parameterType="entity.ConfIng">
+  update conf_ing set online = #{online},member = #{member},participator=#{participator} where id = #{id}
+  </update>
+  <delete id="deleteConfIngById">
+  delete from conf_ing where id = #{id}
+  </delete>
 </mapper>

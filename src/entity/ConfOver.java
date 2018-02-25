@@ -19,6 +19,17 @@ public class ConfOver {
 		this.duration = duration;
 		this.participator = participator;
 	}
+	
+	public ConfOver(String title, String creator, Timestamp createTime,
+			Time duration, String participator) {
+		super();
+		this.title = title;
+		this.creator = creator;
+		this.createTime = createTime;
+		this.duration = duration;
+		this.participator = participator;
+	}
+
 	public int getId() {
 		return id;
 	}
