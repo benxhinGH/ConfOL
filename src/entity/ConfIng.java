@@ -6,7 +6,6 @@ public class ConfIng {
 	private int id;
     private String title;
     private String password;
-    private String roomId;
     private String channelId;
     private int capacity;
     private int online;
@@ -16,13 +15,12 @@ public class ConfIng {
     private String participator;
     
 	
-	public ConfIng(int id, String title, String password, String roomId,
+	public ConfIng(int id, String title, String password,
 			String channelId, int capacity, int online, String member,
 			String creator, Timestamp createTime, String participator) {
 		this.id = id;
 		this.title = title;
 		this.password = password;
-		this.roomId = roomId;
 		this.channelId = channelId;
 		this.capacity = capacity;
 		this.online = online;
@@ -52,12 +50,7 @@ public class ConfIng {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getRoomId() {
-		return roomId;
-	}
-	public void setRoomId(String roomId) {
-		this.roomId = roomId;
-	}
+	
 	public int getCapacity() {
 		return capacity;
 	}

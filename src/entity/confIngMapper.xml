@@ -7,7 +7,6 @@
 <id property="id" column="id"/>
 <result property="title" column="title"/>
 <result property="password" column="password"/>
-<result property="roomId" column="room_id"/>
 <result property="channelId" column="channel_id"/>
 <result property="capacity" column="capacity"/>
 <result property="online" column="online"/>
@@ -20,14 +19,14 @@
     select * from conf_ing
   </select>
   <insert id="insertConfIng">
-  insert into conf_ing (title,password,room_id,channel_id,capacity,online,member,creator,create_time,participator)
-  values (#{title},#{password},#{roomId},#{channelId},#{capacity},#{online},#{member},#{creator},#{createTime},#{participator})
+  insert into conf_ing (title,password,channel_id,capacity,online,member,creator,create_time,participator)
+  values (#{title},#{password},#{channelId},#{capacity},#{online},#{member},#{creator},#{createTime},#{participator})
   </insert>
   <select id="selectLatestConfIng" resultMap="confIngResMap">
   select * from conf_ing order by id desc limit 1
   </select>
-  <select id="selectConfIngByRoomId" resultMap="confIngResMap">
-  select * from conf_ing where room_id = #{roomId}
+  <select id="selectConfIngByChannelId" resultMap="confIngResMap">
+  select * from conf_ing where channel_id = #{channelId}
   </select>
   <update id="updateConfIng" parameterType="entity.ConfIng">
   update conf_ing set online = #{online},member = #{member},participator=#{participator} where id = #{id}

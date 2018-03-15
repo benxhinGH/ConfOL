@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -40,6 +41,7 @@ public class ConfIngServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String selectType=request.getParameter("selectType");
+		String channelId=request.getParameter("channelId");
 		SqlSession session=MybatisUtil.getSqlSession();
 		
 		HttpResult<List<ConfIng>> httpRes=new HttpResult<List<ConfIng>>();
@@ -47,6 +49,9 @@ public class ConfIngServlet extends HttpServlet {
 		switch(selectType){
 		case "all":
 			dbRes=session.selectList("selectAllConfIng");
+			break;
+		case "one":
+			dbRes=session.selectList("selectConfIngByChannelId", channelId);
 			break;
 		default:
 			break;
@@ -82,7 +87,6 @@ public class ConfIngServlet extends HttpServlet {
 		//创建会议
 		String title=request.getParameter("title");
 		String password=request.getParameter("password");
-		String roomId=request.getParameter("room_id");
 		String channelId=request.getParameter("channel_id");
 		int capacity=Integer.valueOf(request.getParameter("capacity"));
 		String creator=request.getParameter("creator");
@@ -91,7 +95,6 @@ public class ConfIngServlet extends HttpServlet {
 		ConfIng confIng=new ConfIng();
 		confIng.setTitle(title);
 		confIng.setPassword(password);
-		confIng.setRoomId(roomId);
 		confIng.setChannelId(channelId);
 		confIng.setCapacity(capacity);
 		confIng.setCreator(creator);

@@ -40,11 +40,11 @@ public class RoomServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String roomId=request.getParameter("room_id");
+		String channelId=request.getParameter("channel_id");
 		String phonenumber=request.getParameter("phonenumber");
 		SqlSession session=MybatisUtil.getSqlSession();
 		User user=session.selectOne("selectUserByPhone",phonenumber);
-		ConfIng confIng=session.selectOne("selectConfIngByRoomId",roomId);
+		ConfIng confIng=session.selectOne("selectConfIngByChannelId",channelId);
 		HttpResult res=new HttpResult();
 		if(user==null){
 			res.setCode(-1);
@@ -86,12 +86,13 @@ public class RoomServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String roomId=request.getParameter("room_id");
+		String channelId=request.getParameter("channel_id");
 		String phonenumber=request.getParameter("phonenumber");
+		System.out.println("用户："+phonenumber+"请求进入房间："+channelId);
 		
 		HttpResult res=new HttpResult();
 		SqlSession session=MybatisUtil.getSqlSession();
-		ConfIng confIng=session.selectOne("selectConfIngByRoomId",roomId);
+		ConfIng confIng=session.selectOne("selectConfIngByChannelId",channelId);
 		User user=session.selectOne("selectUserByPhone",phonenumber);
 		if(confIng==null){
 			res.setCode(-1);
@@ -105,10 +106,12 @@ public class RoomServlet extends HttpServlet {
 		}else{
 			IdConverter member=new IdConverter(confIng.getMember());
 			IdConverter participator=new IdConverter(confIng.getParticipator());
+			System.out.println("房间当前成员："+member.toString()+"房间参会成员:"+participator.toString());
 			if(!member.add(user.getId())){
 				res.setCode(-4);
 				res.setMsg("unknown error");
 			}else{
+				System.out.println("修改member后：member="+member.toString());
 				confIng.setOnline(confIng.getOnline()+1);
 				confIng.setMember(member.toString());
 				if(participator.add(user.getId())){
@@ -131,7 +134,11 @@ public class RoomServlet extends HttpServlet {
 	}
 	
 	private void closeRoom(ConfIng conf) throws IOException{
-		Time duration=new Time(System.currentTimeMillis()-conf.getCreateTime().getTime());
+		long t1=conf.getCreateTime().getTime();
+		long t2=System.currentTimeMillis();
+		
+		int duration=(int)(System.currentTimeMillis()-conf.getCreateTime().getTime());
+		System.out.println("会议创建时间："+t1+"当前系统时间:"+t2+"duration："+duration);
 		ConfOver confOver=new ConfOver(conf.getTitle(),conf.getCreator(),conf.getCreateTime(),duration,conf.getParticipator());
 		SqlSession session=MybatisUtil.getSqlSession();
 		session.delete("deleteConfIngById",conf.getId());

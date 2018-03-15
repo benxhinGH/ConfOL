@@ -8,10 +8,10 @@ public class ConfOver {
 	private String title;
 	private String creator;
 	private Timestamp createTime;
-	private Time duration;
+	private int duration;
 	private String participator;
 	public ConfOver(int id, String title, String creator, Timestamp createTime,
-			Time duration, String participator) {
+			int duration, String participator) {
 		this.id = id;
 		this.title = title;
 		this.creator = creator;
@@ -21,7 +21,7 @@ public class ConfOver {
 	}
 	
 	public ConfOver(String title, String creator, Timestamp createTime,
-			Time duration, String participator) {
+			int duration, String participator) {
 		super();
 		this.title = title;
 		this.creator = creator;
@@ -54,10 +54,10 @@ public class ConfOver {
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
-	public Time getDuration() {
+	public int getDuration() {
 		return duration;
 	}
-	public void setDuration(Time duration) {
+	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 	public String getParticipator() {
