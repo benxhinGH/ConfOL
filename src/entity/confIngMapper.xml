@@ -6,6 +6,7 @@
 <resultMap type="entity.ConfIng" id="confIngResMap">
 <id property="id" column="id"/>
 <result property="title" column="title"/>
+<result property="type" column="type"/>
 <result property="password" column="password"/>
 <result property="channelId" column="channel_id"/>
 <result property="capacity" column="capacity"/>
@@ -14,13 +15,14 @@
 <result property="creator" column="creator"/>
 <result property="createTime" column="create_time"/>
 <result property="participator" column="participator"/>
+<result property="hasfile" column="hasfile"/>
 </resultMap>
   <select id="selectAllConfIng" resultMap="confIngResMap">
     select * from conf_ing
   </select>
   <insert id="insertConfIng">
-  insert into conf_ing (title,password,channel_id,capacity,online,member,creator,create_time,participator)
-  values (#{title},#{password},#{channelId},#{capacity},#{online},#{member},#{creator},#{createTime},#{participator})
+  insert into conf_ing (title,type,password,channel_id,capacity,online,member,creator,create_time,participator,hasfile)
+  values (#{title},#{type},#{password},#{channelId},#{capacity},#{online},#{member},#{creator},#{createTime},#{participator},#{hasfile})
   </insert>
   <select id="selectLatestConfIng" resultMap="confIngResMap">
   select * from conf_ing order by id desc limit 1

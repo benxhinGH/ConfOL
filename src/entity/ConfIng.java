@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class ConfIng {
 	private int id;
     private String title;
+    private int type;
     private String password;
     private String channelId;
     private int capacity;
@@ -13,13 +14,15 @@ public class ConfIng {
     private String creator;
     private Timestamp createTime;
     private String participator;
+    private boolean hasfile;
     
 	
-	public ConfIng(int id, String title, String password,
+	public ConfIng(int id, String title,int type, String password,
 			String channelId, int capacity, int online, String member,
-			String creator, Timestamp createTime, String participator) {
+			String creator, Timestamp createTime, String participator,boolean hasfile) {
 		this.id = id;
 		this.title = title;
+		this.type=type;
 		this.password = password;
 		this.channelId = channelId;
 		this.capacity = capacity;
@@ -28,6 +31,7 @@ public class ConfIng {
 		this.creator = creator;
 		this.createTime = createTime;
 		this.participator = participator;
+		this.hasfile=hasfile;
 	}
 	public ConfIng() {
 		// TODO Auto-generated constructor stub
@@ -93,6 +97,20 @@ public class ConfIng {
 	public void setParticipator(String participator) {
 		this.participator = participator;
 	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public boolean isHasfile() {
+		return hasfile;
+	}
+	public void setHasfile(boolean hasfile) {
+		this.hasfile = hasfile;
+	}
+	
+	
     
     
 

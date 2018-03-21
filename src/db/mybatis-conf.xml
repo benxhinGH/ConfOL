@@ -19,6 +19,8 @@
     <mapper resource="entity/userMapper.xml"/>
     <mapper resource="entity/confIngMapper.xml"/>
     <mapper resource="entity/confoverMapper.xml"/>
+    <mapper resource="entity/confFileMapper.xml"/>
+    <mapper resource="entity/forecastMapper.xml"/>
   </mappers>
   
 </configuration>

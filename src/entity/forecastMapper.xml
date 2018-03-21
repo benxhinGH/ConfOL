@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="entity.forecastMapper">
+  <resultMap type="entity.ConfForecast" id="confForecastResMap">
+<id property="id" column="id"/>
+<result property="title" column="title"/>
+<result property="password" column="password"/>
+<result property="channelId" column="channel_id"/>
+<result property="capacity" column="capacity"/>
+<result property="creator" column="creator"/>
+<result property="hasfile" column="hasfile"/>
+<result property="startTime" column="start_time"/>
+</resultMap>
+    <insert id="insertForecast">
+  insert into conf_forecast (title,password,channel_id,capacity,creator,hasfile,start_time)
+  values (#{title},#{password},#{channelId},#{capacity},#{creator},#{hasfile},#{startTime})
+  </insert>
+  <select id="selectAllForecast" resultMap="confForecastResMap">
+  select * from conf_forecast
+  </select>
+  
+  </mapper>
