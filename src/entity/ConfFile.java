@@ -48,5 +48,13 @@ public class ConfFile {
     public void setPath(String path) {
         this.path = path;
     }
+
+	@Override
+	public String toString() {
+		return "ConfFile [id=" + id + ", confChannelId=" + confChannelId
+				+ ", name=" + name + ", path=" + path + "]";
+	}
+    
+    
 }
 

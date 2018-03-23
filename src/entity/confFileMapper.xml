@@ -7,5 +7,8 @@
   insert into conf_file (conf_channel_id,name,path)
   values (#{confChannelId},#{name},#{path})
   </insert>
+  <select id="selectConfFileByChannelId" parameterType="string" resultType="entity.ConfFile">
+  select * from conf_file where conf_channel_id = #{channelId}
+  </select>
   
   </mapper>
