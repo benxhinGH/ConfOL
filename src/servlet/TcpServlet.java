@@ -9,24 +9,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.session.SqlSession;
-
-import util.GsonUtil;
-import db.MybatisUtil;
-import entity.ConfFile;
 import entity.HttpResult;
+import tcp.ConnectionServer;
+import util.GsonUtil;
 
 /**
- * Servlet implementation class ConfFileServlet
+ * Servlet implementation class TcpServlet
  */
-@WebServlet("/conf_file")
-public class ConfFileServlet extends HttpServlet {
+@WebServlet("/tcp")
+public class TcpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static ConnectionServer tcpServer=new ConnectionServer();
+	
+	
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConfFileServlet() {
+    public TcpServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,29 +37,6 @@ public class ConfFileServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String channelId=request.getParameter("channel_id");
-		SqlSession session=MybatisUtil.getSqlSession();
-		HttpResult<ConfFile> res=new HttpResult<ConfFile>();
-		
-		ConfFile confFile=session.selectOne("selectConfFileByChannelId",channelId);
-		session.close();
-		if(confFile!=null){
-			res.setCode(0);
-			res.setMsg("query success");
-			res.setResult(confFile);
-			System.out.println("查询文件信息为："+confFile.toString());
-		}else{
-			res.setCode(-1);
-			res.setMsg("file not exist");
-			System.out.println("要查询的文件不存在，channelId为："+channelId);
-		}
-		
-		
-		response.setCharacterEncoding("utf-8");
-		PrintWriter out=response.getWriter();
-		out.write(GsonUtil.getGson().toJson(res));
-		out.flush();
-		out.close();
 	}
 
 	/**
@@ -66,6 +44,19 @@ public class ConfFileServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("请求建立tcp长连接");
+		if(!tcpServer.isAlive()){
+			tcpServer.start();
+		}
+		
+		HttpResult res=new HttpResult();
+		res.setCode(0);
+		res.setMsg("connection allowed");
+		
+		PrintWriter out=response.getWriter();
+		out.write(GsonUtil.getGson().toJson(res));
+		out.flush();
+		out.close();
 	}
 
 }

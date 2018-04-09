@@ -61,9 +61,9 @@ public class UploadServlet extends HttpServlet {
         DiskFileItemFactory factory = new DiskFileItemFactory();  
   
         // 设置文件上传路径  
-        String uploadDir = "C:\\confol\\upload\\";
+        String uploadDir = "D:\\confol\\upload\\";
         // 获取系统默认的临时文件保存路径，该路径为Tomcat根目录下的temp文件夹  
-        String temp = "C:\\confol\\temp\\"; 
+        String temp = "D:\\confol\\temp\\"; 
         // 设置缓冲区大小为 5M  
         factory.setSizeThreshold(1024 * 1024 * 5);  
         // 设置临时文件夹为temp  
@@ -102,6 +102,7 @@ public class UploadServlet extends HttpServlet {
             file.setConfChannelId(channelId);
             file.setPath(savePath);
             session.insert("insertConfFile",file);
+            System.out.println("插入文件："+file.toString());
             session.commit();
   
             res.setCode(0);
