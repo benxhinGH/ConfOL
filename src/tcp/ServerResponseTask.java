@@ -7,12 +7,15 @@ import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import manager.SpeechSyncManager;
 import tcp.callback.ResponseCallback;
+import tcp.event.AuthEvent;
 import tcp.protocol.BasicProtocol;
 import tcp.protocol.DataAckProtocol;
 import tcp.protocol.DataProtocol;
 import tcp.protocol.PingAckProtocol;
 import tcp.protocol.PingProtocol;
+import util.GsonUtil;
 
 public class ServerResponseTask implements Runnable {
 
@@ -119,7 +122,7 @@ public class ServerResponseTask implements Runnable {
         }
     }
 
-    private boolean isConnected() {
+    public boolean isConnected() {
         if (socket.isClosed() || !socket.isConnected()) {
             onLineClient.remove(userIP);
             ServerResponseTask.this.stop();
@@ -147,8 +150,8 @@ public class ServerResponseTask implements Runnable {
                 if (clientData != null) {
                     if (clientData.getProtocolType() == 0) {
                         System.out.println("dtype: " + ((DataProtocol) clientData).getDtype() + ", pattion: " + ((DataProtocol) clientData).getPattion() + ", msgId: " + ((DataProtocol) clientData).getMsgId() + ", data: " + ((DataProtocol) clientData).getData());
-
-                        DataAckProtocol dataAck = new DataAckProtocol();
+                        
+                        DataAckProtocol dataAck = handleDataReceived((DataProtocol)clientData);
                         dataAck.setUnused("收到消息：" + ((DataProtocol) clientData).getData());
                         dataQueue.offer(dataAck);
                         toNotifyAll(dataQueue); //唤醒发送线程
@@ -172,7 +175,29 @@ public class ServerResponseTask implements Runnable {
 
             SocketUtil.closeInputStream(inputStream);
         }
+        
+        private DataAckProtocol handleDataReceived(DataProtocol data){
+        	DataAckProtocol ack=new DataAckProtocol();
+        	int pattern=data.getPattion();
+        	if(pattern==0){
+        		AuthEvent authEvent=GsonUtil.getGson().fromJson(data.getData(),AuthEvent.class);
+        		int roomId=authEvent.getRoomId();
+        		int identity=authEvent.getIdentity();
+        		if(identity==0){
+        			SpeechSyncManager.getIntance().registerCreator(roomId, ServerResponseTask.this);
+        		}else if(identity==1){
+        			SpeechSyncManager.getIntance().registerParticipator(roomId, ServerResponseTask.this);
+        		}
+        		ack.setUnused(AuthEvent.AUTH_SUCCESS);
+        	}else{
+        		SpeechSyncManager.getIntance().forwardEvent(ServerResponseTask.this, data);
+        	}
+        	
+        	return ack;
+        }
     }
+    
+    
 
     public class SendTask extends Thread {
 
