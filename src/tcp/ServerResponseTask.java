@@ -2,6 +2,7 @@ package tcp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
@@ -52,6 +53,7 @@ public class ServerResponseTask implements Runnable {
             sendTask = new SendTask();
             sendTask.outputStream = new DataOutputStream(socket.getOutputStream());
             sendTask.start();
+            System.out.println("输出流为："+sendTask.outputStream.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,6 +83,7 @@ public class ServerResponseTask implements Runnable {
     }
 
     public void addMessage(BasicProtocol data) {
+    	System.out.println("新增待发送数据："+data.toString());
         if (!isConnected()) {
             return;
         }
@@ -158,7 +161,7 @@ public class ServerResponseTask implements Runnable {
 
                         tBack.targetIsOnline(userIP);
                     } else if (clientData.getProtocolType() == 2) {
-                        System.out.println("pingId: " + ((PingProtocol) clientData).getPingId());
+                       // System.out.println("pingId: " + ((PingProtocol) clientData).getPingId());
 
                         PingAckProtocol pingAck = new PingAckProtocol();
                         pingAck.setUnused("收到心跳");
@@ -188,7 +191,10 @@ public class ServerResponseTask implements Runnable {
         		}else if(identity==1){
         			SpeechSyncManager.getIntance().registerParticipator(roomId, ServerResponseTask.this);
         		}
-        		ack.setUnused(AuthEvent.AUTH_SUCCESS);
+        		
+        			
+				ack.setAckMsgId(999);
+				
         	}else{
         		SpeechSyncManager.getIntance().forwardEvent(ServerResponseTask.this, data);
         	}
@@ -217,6 +223,7 @@ public class ServerResponseTask implements Runnable {
                     toWaitAll(dataQueue);
                 } else if (outputStream != null) {
                     synchronized (outputStream) {
+                    	
                         SocketUtil.write2Stream(procotol, outputStream);
                     }
                 }

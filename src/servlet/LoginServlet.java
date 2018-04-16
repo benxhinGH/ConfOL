@@ -55,6 +55,7 @@ public class LoginServlet extends HttpServlet {
 			result.setCode(0);
 			result.setMsg("login succeess");
 			result.setResult(user);
+			System.out.println(phonenumber+"µÇÂ¼");
 		}else{
 			//ÃÜÂë´íÎó
 			result.setCode(1);

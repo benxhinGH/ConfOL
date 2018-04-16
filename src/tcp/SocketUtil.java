@@ -109,6 +109,7 @@ public class SocketUtil {
             bufferedOutputStream.write(header);
             bufferedOutputStream.write(buffData);
             bufferedOutputStream.flush();
+            System.out.println("将数据："+protocol.toString()+"写入输出流:"+outputStream.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

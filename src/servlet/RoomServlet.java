@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import manager.SpeechSyncManager;
+
 import org.apache.ibatis.session.SqlSession;
 
 import util.GsonUtil;
@@ -125,6 +127,7 @@ public class RoomServlet extends HttpServlet {
 			}
 			
 		}
+		
 		
 		PrintWriter out=response.getWriter();
 		out.write(GsonUtil.getGson().toJson(res));

@@ -50,8 +50,8 @@ public class ConnectionServer extends Thread{
 
                             @Override
                             public void targetIsOnline(String clientIp) {
-                                System.out.println(clientIp + " is onLine");
-                                System.out.println("-----------------------------------------");
+                                //System.out.println(clientIp + " is onLine");
+                               // System.out.println("-----------------------------------------");
                             }
                         });
 

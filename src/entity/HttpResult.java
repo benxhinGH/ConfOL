@@ -15,6 +15,14 @@ public class HttpResult<T> {
 	public void setResult(T result) {
 		this.result = result;
 	}
+	public int getCode() {
+		return code;
+	}
+	public String getMsg() {
+		return msg;
+	}
+	
+	
 
     
 

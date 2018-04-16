@@ -1,5 +1,6 @@
 package manager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import tcp.ServerResponseTask;
@@ -7,7 +8,7 @@ import tcp.ServerResponseTask;
 public class SpeechRoom {
 	
 	private ServerResponseTask creator;
-	private List<ServerResponseTask> participatorList;
+	private List<ServerResponseTask> participatorList=new ArrayList<>();
 	
 	public SpeechRoom(){
 		
