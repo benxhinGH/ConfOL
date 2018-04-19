@@ -10,4 +10,7 @@
   insert into user (nickname,phonenumber,password)
   values (#{nickname},#{phonenumber},#{password})
   </insert>
+  <update id="updateUserInfo">
+  update user set nickname=#{nickname},head_image_url=#{headImageUrl} where id=#{id}
+  </update>
 </mapper>

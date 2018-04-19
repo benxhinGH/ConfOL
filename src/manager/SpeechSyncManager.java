@@ -49,7 +49,7 @@ public class SpeechSyncManager {
 	
 	
 	public void forwardEvent(ServerResponseTask creator,DataProtocol data){
-		System.out.println("转发消息："+data.toString());
+		//System.out.println("转发消息："+data.toString());
 		List<ServerResponseTask> participatorList=creatorRoomMap.get(creator).getParticipatorList();
 		if(participatorList.size()==0){
 			System.out.println("房间内成员数为0");
@@ -62,7 +62,7 @@ public class SpeechSyncManager {
 				invalid.add(task);
 				continue;
 			}
-			System.out.println("为["+task.toString()+"]转发");
+			//System.out.println("为["+task.toString()+"]转发");
 			task.addMessage(data);
 		}
 		

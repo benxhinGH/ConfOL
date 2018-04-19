@@ -6,13 +6,14 @@ public class User {
 	private String nickname;
 	private String phonenumber;
 	private String password;
+	private String headImageUrl;
 	
-	public User(int id, String nickname, String phonenumber, String password) {
-		super();
+	public User(int id, String nickname, String phonenumber, String password,String headImageUrl) {
 		this.id = id;
 		this.nickname = nickname;
 		this.phonenumber = phonenumber;
 		this.password = password;
+		this.headImageUrl=headImageUrl;
 	}
 	public User(String phonenumber, String password) {
 		this.phonenumber = phonenumber;
@@ -39,10 +40,18 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getHeadImageUrl() {
+		return headImageUrl;
+	}
+	public void setHeadImageUrl(String headImageUrl) {
+		this.headImageUrl = headImageUrl;
+	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", nickname=" + nickname + ", phonenumber="
-				+ phonenumber + ", password=" + password + "]";
+				+ phonenumber + ", password=" + password + ", headImageUrl="
+				+ headImageUrl + "]";
 	}
+	
 	
 }

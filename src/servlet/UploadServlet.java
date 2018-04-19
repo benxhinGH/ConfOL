@@ -24,7 +24,9 @@ import org.apache.ibatis.session.SqlSession;
 import db.MybatisUtil;
 import util.GsonUtil;
 import entity.ConfFile;
+import entity.FileDescription;
 import entity.HttpResult;
+import entity.User;
 
 /**
  * Servlet implementation class UploadServlet
@@ -55,13 +57,15 @@ public class UploadServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");  
         PrintWriter out = response.getWriter();  
-        HttpResult res=new HttpResult();
+        HttpResult<String> res=new HttpResult<String>();
   
         // 创建文件项目工厂对象  
         DiskFileItemFactory factory = new DiskFileItemFactory();  
   
         // 设置文件上传路径  
-        String uploadDir = "D:\\confol\\upload\\";
+        String fileDir = "D:\\confol\\upload\\file\\";
+        //用户头像保存路径
+        String imageDir= "D:\\confol\\upload\\image\\";
         // 获取系统默认的临时文件保存路径，该路径为Tomcat根目录下的temp文件夹  
         String temp = "D:\\confol\\temp\\"; 
         // 设置缓冲区大小为 5M  
@@ -72,7 +76,7 @@ public class UploadServlet extends HttpServlet {
         ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
         servletFileUpload.setHeaderEncoding("utf-8");
   
-        String channelId = null;
+        FileDescription fileDes=null;
         String savePath = null;
         String fileName = null;
         SqlSession session=MybatisUtil.getSqlSession();
@@ -83,11 +87,22 @@ public class UploadServlet extends HttpServlet {
             for (FileItem item : list) {  
                 String name = item.getFieldName();  
                 if(name.equals("description")){
-                	channelId=item.getString();
+                	fileDes=GsonUtil.getGson().fromJson(item.getString(), FileDescription.class);
+                	System.out.println("文件描述："+fileDes.toString());
                 }else if(name.equals("file")){
                 	InputStream is = item.getInputStream();
-                	fileName=item.getName();
-                	savePath=uploadDir + fileName;
+                	String nameRaw=item.getName();
+                	System.out.println("nameRaw:"+nameRaw);
+                	
+                	if(fileDes.getType()==FileDescription.TYPE_USER_HEAD_IMAGE){
+                		String suffix=nameRaw.substring(nameRaw.indexOf("."));
+                		fileName=fileDes.getAdditionInfo()+"headImage"+suffix;
+                		savePath=imageDir+fileName;
+                	}else{
+                		fileName=nameRaw;
+                		savePath=fileDir + fileName;
+                	}
+                	
                 	try {
 						inputStream2File(is,savePath );
 					} catch (Exception e) {
@@ -97,16 +112,37 @@ public class UploadServlet extends HttpServlet {
                 	}
             }
             
-            ConfFile file=new ConfFile();
-            file.setName(fileName);
-            file.setConfChannelId(channelId);
-            file.setPath(savePath);
-            session.insert("insertConfFile",file);
-            System.out.println("插入文件："+file.toString());
-            session.commit();
+            if(fileDes.getType()==FileDescription.TYPE_CONF_FILE){
+            	ConfFile file=new ConfFile();
+            	file.setName(fileName);
+            	file.setConfChannelId(fileDes.getAdditionInfo());
+            	file.setPath(savePath);
+            	session.insert("insertConfFile",file);
+            	System.out.println("插入文件："+file.toString());
+            	session.commit();
+            	res.setCode(0);
+            	res.setMsg("success");
+            	res.setResult(savePath);
+            	
+            }else if(fileDes.getType()==FileDescription.TYPE_USER_HEAD_IMAGE){
+            	String phoneNumber=fileDes.getAdditionInfo();
+            	User user=session.selectOne("selectUserByPhone",phoneNumber);
+            	if(user==null){
+            		res.setCode(-1);
+            		res.setMsg("user not found");
+            	}else{
+            		user.setHeadImageUrl(savePath);
+            		session.update("updateUserInfo", user);
+            		session.commit();
+            		res.setCode(0);
+            		res.setMsg("update user headImage infomation success");
+            		res.setResult(savePath);
+            	}
+            }
+            
+            
   
-            res.setCode(0);
-            res.setMsg("success");
+            
         } catch (FileUploadException e) {  
             e.printStackTrace();  
             res.setCode(1);
