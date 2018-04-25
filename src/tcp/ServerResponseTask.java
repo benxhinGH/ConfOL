@@ -83,7 +83,7 @@ public class ServerResponseTask implements Runnable {
     }
 
     public void addMessage(BasicProtocol data) {
-    	System.out.println("新增待发送数据："+data.toString());
+    	//System.out.println("新增待发送数据："+data.toString());
         if (!isConnected()) {
             return;
         }
@@ -152,7 +152,7 @@ public class ServerResponseTask implements Runnable {
 
                 if (clientData != null) {
                     if (clientData.getProtocolType() == 0) {
-                        System.out.println("dtype: " + ((DataProtocol) clientData).getDtype() + ", pattion: " + ((DataProtocol) clientData).getPattion() + ", msgId: " + ((DataProtocol) clientData).getMsgId() + ", data: " + ((DataProtocol) clientData).getData());
+                        //System.out.println("dtype: " + ((DataProtocol) clientData).getDtype() + ", pattion: " + ((DataProtocol) clientData).getPattion() + ", msgId: " + ((DataProtocol) clientData).getMsgId() + ", data: " + ((DataProtocol) clientData).getData());
                         
                         DataAckProtocol dataAck = handleDataReceived((DataProtocol)clientData);
                         dataAck.setUnused("收到消息：" + ((DataProtocol) clientData).getData());

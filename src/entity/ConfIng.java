@@ -12,14 +12,14 @@ public class ConfIng {
     private int online;
     private String member;
     private String creator;
-    private Timestamp createTime;
+    private long createTime;
     private String participator;
     private boolean hasfile;
     
 	
 	public ConfIng(int id, String title,int type, String password,
 			String channelId, int capacity, int online, String member,
-			String creator, Timestamp createTime, String participator,boolean hasfile) {
+			String creator, long createTime, String participator,boolean hasfile) {
 		this.id = id;
 		this.title = title;
 		this.type=type;
@@ -67,10 +67,10 @@ public class ConfIng {
 	public void setCreator(String creator) {
 		this.creator = creator;
 	}
-	public Timestamp getCreateTime() {
+	public long getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(long createTime) {
 		this.createTime = createTime;
 	}
 	public String getChannelId() {

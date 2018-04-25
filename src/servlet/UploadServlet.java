@@ -63,9 +63,9 @@ public class UploadServlet extends HttpServlet {
         DiskFileItemFactory factory = new DiskFileItemFactory();  
   
         // 设置文件上传路径  
-        String fileDir = "D:\\confol\\upload\\file\\";
+        String fileDir = "/root/confoldatas/upload/file/";
         //用户头像保存路径
-        String imageDir= "D:\\confol\\upload\\image\\";
+        String imageDir= "/root/confoldatas/upload/image/";
         // 获取系统默认的临时文件保存路径，该路径为Tomcat根目录下的temp文件夹  
         String temp = "D:\\confol\\temp\\"; 
         // 设置缓冲区大小为 5M  
@@ -96,7 +96,7 @@ public class UploadServlet extends HttpServlet {
                 	
                 	if(fileDes.getType()==FileDescription.TYPE_USER_HEAD_IMAGE){
                 		String suffix=nameRaw.substring(nameRaw.indexOf("."));
-                		fileName=fileDes.getAdditionInfo()+"headImage"+suffix;
+                		fileName=fileDes.getAdditionInfo()+"headImage"+System.currentTimeMillis()+suffix;
                 		savePath=imageDir+fileName;
                 	}else{
                 		fileName=nameRaw;

@@ -137,10 +137,10 @@ public class RoomServlet extends HttpServlet {
 	}
 	
 	private void closeRoom(ConfIng conf) throws IOException{
-		long t1=conf.getCreateTime().getTime();
+		long t1=conf.getCreateTime();
 		long t2=System.currentTimeMillis();
 		
-		int duration=(int)(System.currentTimeMillis()-conf.getCreateTime().getTime());
+		int duration=(int)(t2-t1);
 		System.out.println("会议创建时间："+t1+"当前系统时间:"+t2+"duration："+duration);
 		ConfOver confOver=new ConfOver(conf.getTitle(),conf.getCreator(),conf.getCreateTime(),duration,conf.getParticipator());
 		SqlSession session=MybatisUtil.getSqlSession();

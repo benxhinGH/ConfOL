@@ -43,7 +43,6 @@ public class DownloadServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		String path=request.getParameter("path");
-		System.out.println("ÇëÇóÏÂÔØ£º"+path);
 		File file=new File(path);
 		
 		FileInputStream in = new FileInputStream(file);

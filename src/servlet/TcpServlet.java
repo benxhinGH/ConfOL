@@ -45,9 +45,12 @@ public class TcpServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("请求建立tcp长连接");
+		if(tcpServer==null)tcpServer=new ConnectionServer();
 		if(!tcpServer.isAlive()){
+			System.out.println("线程未在活动状态，启动线程");
 			tcpServer.start();
 		}
+		System.out.println("线程已在活动状态");
 		
 		HttpResult res=new HttpResult();
 		res.setCode(0);

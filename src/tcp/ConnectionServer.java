@@ -38,6 +38,7 @@ public class ConnectionServer extends Thread{
             while (isStart) {
             	
                 Socket socket = serverSocket.accept();
+                System.out.println(" ’µΩ«Î«Û");
                 serverResponseTask = new ServerResponseTask(socket,
                         new ResponseCallback() {
 

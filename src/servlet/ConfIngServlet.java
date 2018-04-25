@@ -94,7 +94,7 @@ public class ConfIngServlet extends HttpServlet {
 		int capacity=Integer.valueOf(request.getParameter("capacity"));
 		String creator=request.getParameter("creator");
 		boolean hasfile=Boolean.valueOf(request.getParameter("hasfile"));
-		Timestamp createTime=new Timestamp(System.currentTimeMillis());
+		long createTime=System.currentTimeMillis();
 		
 		ConfIng confIng=new ConfIng();
 		confIng.setTitle(title);

@@ -3,11 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="entity.confIngMapper">
-  <select id="selectAllConfOver" resultType="entity.ConfOver">
+<resultMap type="entity.ConfOver" id="confOverResMap">
+<id property="id" column="id"/>
+<result property="title" column="title"/>
+<result property="type" column="type"/>
+<result property="creator" column="creator"/>
+<result property="createTime" column="create_time"/>
+<result property="duration" column="duration"/>
+<result property="participator" column="participator"/>
+</resultMap>
+  <select id="selectAllConfOver" resultMap="confOverResMap">
     select * from conf_over
   </select>
   <insert id="insertConfOver">
-  insert into conf_over (title,creator,create_time,duration,participator)
-  values (#{title},#{creator},#{createTime},#{duration},#{participator})
+  insert into conf_over (title,type,creator,create_time,duration,participator)
+  values (#{title},#{type},#{creator},#{createTime},#{duration},#{participator})
   </insert>
 </mapper>

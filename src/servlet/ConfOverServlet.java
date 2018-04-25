@@ -53,6 +53,10 @@ public class ConfOverServlet extends HttpServlet {
 		session.commit();
 		session.close();
 		
+		for(ConfOver over:dbRes){
+			System.out.println(over.toString());
+		}
+		
 		if(dbRes!=null){
 			httpRes.setCode(0);
 			httpRes.setMsg("query success");
