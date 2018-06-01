@@ -40,6 +40,9 @@ public class ForecastServlet extends HttpServlet {
 		SqlSession session=MybatisUtil.getSqlSession();
 		List<ConfForecast> list=session.selectList("selectAllForecast");
 		HttpResult<List<ConfForecast>> res=new HttpResult<List<ConfForecast>>();
+		for(ConfForecast c:list) {
+			System.out.println("查询到会议预告："+c.toString());
+		}
 		res.setCode(0);
 		res.setMsg("query success");
 		res.setResult(list);

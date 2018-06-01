@@ -88,7 +88,7 @@ public class AuthcodeServlet extends HttpServlet {
 		
 		final String authcode=authcodeHelper.generateAuthcode();
 		final HttpResult result=new HttpResult();
-		SmsUtil.sendMsg(phonenumber, authcode, new HttpCallback(){
+		SmsUtil.sendMsg(phonenumber, "您的验证码为："+authcode+"，有效时常为5分钟，请尽快注册。【会议同步系统】", new HttpCallback(){
 
 			@Override
 			public void onSuccess() {

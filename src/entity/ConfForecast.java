@@ -105,6 +105,16 @@ public class ConfForecast {
 	public void setStartTime(long startTime) {
 		this.startTime = startTime;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ConfForecast [id=" + id + ", title=" + title + ", password=" + password + ", channelId=" + channelId
+				+ ", capacity=" + capacity + ", creator=" + creator + ", hasfile=" + hasfile + ", startTime="
+				+ startTime + "]";
+	}
+	
+	
 	
 	
 	

@@ -34,6 +34,7 @@ import entity.User;
 @WebServlet("/upload")
 public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String userHomeDir=System.getProperty("user.home");
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -63,11 +64,11 @@ public class UploadServlet extends HttpServlet {
         DiskFileItemFactory factory = new DiskFileItemFactory();  
   
         // 设置文件上传路径  
-        String fileDir = "/root/confoldatas/upload/file/";
+        String fileDir = userHomeDir+"/confoldatas/upload/file/";
         //用户头像保存路径
-        String imageDir= "/root/confoldatas/upload/image/";
+        String imageDir= userHomeDir+"/confoldatas/upload/image/";
         // 获取系统默认的临时文件保存路径，该路径为Tomcat根目录下的temp文件夹  
-        String temp = "D:\\confol\\temp\\"; 
+        String temp = userHomeDir+"/confoldatas/temp/"; 
         // 设置缓冲区大小为 5M  
         factory.setSizeThreshold(1024 * 1024 * 5);  
         // 设置临时文件夹为temp  

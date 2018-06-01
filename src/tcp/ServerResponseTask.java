@@ -180,6 +180,7 @@ public class ServerResponseTask implements Runnable {
         }
         
         private DataAckProtocol handleDataReceived(DataProtocol data){
+        	System.out.println("收到数据："+data.toString());
         	DataAckProtocol ack=new DataAckProtocol();
         	int pattern=data.getPattion();
         	if(pattern==0){
@@ -192,7 +193,6 @@ public class ServerResponseTask implements Runnable {
         			SpeechSyncManager.getIntance().registerParticipator(roomId, ServerResponseTask.this);
         		}
         		
-        			
 				ack.setAckMsgId(999);
 				
         	}else{
